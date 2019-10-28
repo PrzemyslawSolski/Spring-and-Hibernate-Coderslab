@@ -1,6 +1,11 @@
 package pl.coderslab.book;
 
+import pl.coderslab.author.Author;
+import pl.coderslab.publisher.Publisher;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "books")
@@ -9,10 +14,16 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
-    private String author;
     private int rating;
-    private String publisher;
     private String description;
+    @ManyToOne
+    private Publisher publisher;
+
+    @ManyToMany
+    @JoinTable(name = "book_authors",
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "author_id"))
+    private List<Author> authors;
 
     public Long getId() {
         return id;
@@ -30,13 +41,6 @@ public class Book {
         this.title = title;
     }
 
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
 
     public int getRating() {
         return rating;
@@ -46,11 +50,11 @@ public class Book {
         this.rating = rating;
     }
 
-    public String getPublisher() {
+    public Publisher getPublisher() {
         return publisher;
     }
 
-    public void setPublisher(String publisher) {
+    public void setPublisher(Publisher publisher) {
         this.publisher = publisher;
     }
 
@@ -62,14 +66,20 @@ public class Book {
         this.description = description;
     }
 
+    public List<Author> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(List<Author> authors) {
+        this.authors = authors;
+    }
+
     @Override
     public String toString() {
         return "Book{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", author='" + author + '\'' +
                 ", rating=" + rating +
-                ", publisher='" + publisher + '\'' +
                 ", description='" + description + '\'' +
                 '}';
     }

@@ -1,7 +1,11 @@
 package pl.coderslab.author;
 
 
+import pl.coderslab.book.Book;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "authors")
@@ -13,8 +17,19 @@ public class Author {
     private String firstName;
     private String lastName;
 
+    @ManyToMany (mappedBy = "authors")
+    private List<Book> books;
+
     public Long getId() {
         return id;
+    }
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
     }
 
     public void setId(Long id) {
