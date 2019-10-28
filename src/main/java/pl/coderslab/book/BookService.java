@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class BookService {
@@ -29,5 +31,13 @@ public class BookService {
 
     public void delete(Long id){
         bookDao.delete(id);
+    }
+
+    public List<Book> findAll(){
+        return bookDao.findAll();
+    }
+
+    public List<Book> getRatingList(int rating){
+        return bookDao.getRatingList(rating);
     }
 }

@@ -11,7 +11,7 @@ public class PersonDetails {
     private Long id;
     private String firstName;
     private String lastName;
-    private int streetNumber;
+    private String streetNumber;
     private String street;
     private String city;
 
@@ -43,11 +43,11 @@ public class PersonDetails {
         this.lastName = lastName;
     }
 
-    public int getStreetNumber() {
+    public String getStreetNumber() {
         return streetNumber;
     }
 
-    public void setStreetNumber(int streetNumber) {
+    public void setStreetNumber(String streetNumber) {
         this.streetNumber = streetNumber;
     }
 
