@@ -20,7 +20,7 @@ public class AuthorController {
 
     @GetMapping("/add")
     @ResponseBody
-    public String add(){
+    public String add() {
         Author author = new Author();
         author.setFirstName("Jan");
         author.setLastName("Kowalski");
@@ -30,9 +30,9 @@ public class AuthorController {
 
     @GetMapping("/find/{id}")
     @ResponseBody
-    public String find(@PathVariable Long id){
+    public String find(@PathVariable Long id) {
         Author author = authorService.findOne(id);
-        if(author!=null) {
+        if (author != null) {
             return author.toString();
         }
         return "Author not found";
@@ -44,6 +44,13 @@ public class AuthorController {
         Author author = authorService.findOne(id);
         author.setFirstName("nowy!!!!");
         authorService.update(author);
-        return "Book updated, id= " + author.getId();
+        return "Author updated, id= " + author.getId();
+    }
+
+    @GetMapping("/delete/{id}")
+    @ResponseBody
+    public String delete(@PathVariable Long id) {
+        authorService.delete(id);
+        return "Author deleted id = " + id;
     }
 }
