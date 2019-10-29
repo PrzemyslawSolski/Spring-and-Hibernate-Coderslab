@@ -32,6 +32,11 @@
         <form:select path="publisher.id" items="${publishers}"
                      itemValue="id" itemLabel="name"/>
     </label><br><br>
+    <form:select path="authors" items="${authors}"
+    itemValue="id" itemLabel="lastName">
+        <form:option value="-" label="--Please Select--"/>
+        <form:options items="${authors.id}"/>
+    </form:select>
     <input type="submit" value="Save">
 </form:form>
 
