@@ -6,6 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.coderslab.book.Book;
 import pl.coderslab.book.BookDao;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class PublisherService {
@@ -31,5 +33,9 @@ public class PublisherService {
 
     public void delete(Long id){
         publisherDao.delete(id);
+    }
+    
+    public List<Publisher> findAll(){
+        return publisherDao.findAll();
     }
 }
