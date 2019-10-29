@@ -2,10 +2,8 @@ package pl.coderslab.book;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import pl.coderslab.author.Author;
 import pl.coderslab.author.AuthorService;
 import pl.coderslab.publisher.Publisher;
@@ -30,7 +28,7 @@ public class BookController {
     }
 
 
-    @GetMapping("/add")
+    @GetMapping("/addold")
     @ResponseBody
     public String add() {
         Book book = new Book();
@@ -53,6 +51,28 @@ public class BookController {
         return "Book added, id=" + book.getId();
 
     }
+
+    @GetMapping("/")
+    public String show(Model model) {
+        model.addAttribute("books", bookService.findAll());
+        return "books";
+    }
+
+    @GetMapping("/add")
+    public String add(Model model) {
+        model.addAttribute("book", new Book());
+        return "book";
+
+    }
+
+    @PostMapping("/add")
+//    @ResponseBody
+    public String add(Model model, @ModelAttribute Book book) {
+        bookService.create(book);
+//        return "Book added, id=" + book.getId();
+        return show(model);
+    }
+
 
     @GetMapping("/update/{id}")
     @ResponseBody
@@ -78,5 +98,15 @@ public class BookController {
             return book.toString();
         }
         return "Book not found";
+    }
+
+    @ModelAttribute("publishers")
+    public List<Publisher> getPublisher() {
+        return publisherService.findAll();
+    }
+
+    @ModelAttribute("authors")
+    public List<Author> getAuthor() {
+        return authorService.findAll();
     }
 }

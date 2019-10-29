@@ -34,7 +34,7 @@ public class PublisherService {
     public void delete(Long id){
         publisherDao.delete(id);
     }
-    
+
     public List<Publisher> findAll(){
         return publisherDao.findAll();
     }
