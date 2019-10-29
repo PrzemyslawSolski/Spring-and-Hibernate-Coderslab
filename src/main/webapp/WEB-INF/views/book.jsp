@@ -14,7 +14,7 @@
 </head>
 <body>
 
-<form:form action="/books/add" method="post" modelAttribute="book">
+<form:form method="post" modelAttribute="book">
     <label>Tytuł:
         <form:input path="title"></form:input>
     </label><br><br>
@@ -34,6 +34,7 @@
     </label><br><br>
     <input type="submit" value="Save">
 </form:form>
+
 
 </body>
 </html>

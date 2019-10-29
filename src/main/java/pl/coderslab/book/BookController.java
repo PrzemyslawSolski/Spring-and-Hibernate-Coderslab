@@ -52,7 +52,7 @@ public class BookController {
 
     }
 
-    @GetMapping("/")
+    @GetMapping("/list")
     public String show(Model model) {
         model.addAttribute("books", bookService.findAll());
         return "books";
@@ -69,25 +69,32 @@ public class BookController {
 //    @ResponseBody
     public String add(Model model, @ModelAttribute Book book) {
         bookService.create(book);
-//        return "Book added, id=" + book.getId();
-        return show(model);
+        return "redirect:list";
     }
 
+     @GetMapping("/update/{id}")
+//    @ResponseBody
+    public String update(Model model, @PathVariable Long id) {
+        model.addAttribute("book", bookService.findOne(id));
+        return "book";
+    }
 
-    @GetMapping("/update/{id}")
-    @ResponseBody
-    public String update(@PathVariable Long id) {
-        Book book = bookService.findOne(id);
-        book.setTitle("Thinking in Javvvaaa!!!!");
+    @PostMapping("/update/{id}")
+    public String update(Model model, @ModelAttribute Book book) {
         bookService.update(book);
-        return "Book updated, id= " + book.getId();
+        return "redirect:../list";
     }
 
     @GetMapping("/delete/{id}")
-    @ResponseBody
-    public String delete(@PathVariable Long id) {
+    public String delete(Model model, @PathVariable Long id) {
+        model.addAttribute("book", bookService.findOne(id));
+        return "confirmDelete";
+    }
+
+    @GetMapping("/delete/confirm/{id}")
+    public String deleteConf(@PathVariable Long id) {
         bookService.delete(id);
-        return "Book deleted id = " + id;
+        return "redirect:../../list";
     }
 
     @GetMapping("/find/{id}")

@@ -31,7 +31,7 @@
             <td>${book.rating}</td>
             <td>${book.description}</td>
             <td>${book.publisher.name}</td>
-            <td align="center"><a href="/books/edit/${book.id}">Edit </a></td>
+            <td align="center"><a href="/books/update/${book.id}">Edit </a></td>
             <td align="center"><a href="/books/delete/${book.id}">Delete </a></td>
         </tr>
     </c:forEach>
