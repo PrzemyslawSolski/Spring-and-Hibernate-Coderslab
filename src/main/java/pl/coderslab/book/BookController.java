@@ -1,5 +1,6 @@
 package pl.coderslab.book;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -76,7 +77,8 @@ public class BookController {
      @GetMapping("/update/{id}")
 //    @ResponseBody
     public String update(Model model, @PathVariable Long id) {
-        model.addAttribute("book", bookService.findOne(id));
+        Book book =  bookService.findBookWithAuthors(id);
+        model.addAttribute("book",book);
         return "book";
     }
 
@@ -88,15 +90,16 @@ public class BookController {
 
     @GetMapping("/delete/{id}")
     public String delete(Model model, @PathVariable Long id) {
-        model.addAttribute("book", bookService.findOne(id));
-        return "confirmDelete";
+        bookService.delete(id);
+//        model.addAttribute("book", bookService.findOne(id));
+        return "redirect:../list";
     }
 
-    @GetMapping("/delete/confirm/{id}")
-    public String deleteConf(@PathVariable Long id) {
-        bookService.delete(id);
-        return "redirect:../../list";
-    }
+//    @GetMapping("/delete/confirm/{id}")
+//    public String deleteConf(@PathVariable Long id) {
+//        bookService.delete(id);
+//        return "redirect:../../list";
+//    }
 
     @GetMapping("/find/{id}")
     @ResponseBody

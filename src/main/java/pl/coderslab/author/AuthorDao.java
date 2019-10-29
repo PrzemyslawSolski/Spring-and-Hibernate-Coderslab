@@ -30,6 +30,12 @@ public class AuthorDao {
         return query.getResultList();
     }
 
+    public void deleteAuthorRelations(Long id) {
+        Query query = entityManager.createNativeQuery("delete from book_authors where author_id = :id");
+        query.setParameter("id", id);
+        query.executeUpdate();
+    }
+
     public void delete(Long id){
         Author author = findOne(id);
         if (author != null){

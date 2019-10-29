@@ -2,10 +2,8 @@ package pl.coderslab.author;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/authors")
@@ -19,13 +17,22 @@ public class AuthorController {
     }
 
     @GetMapping("/add")
-    @ResponseBody
-    public String add() {
-        Author author = new Author();
-        author.setFirstName("Jan");
-        author.setLastName("Kowalski");
+//    @ResponseBody
+    public String add(Model model) {
+//        Author author = new Author();
+//        author.setFirstName("Jan");
+//        author.setLastName("Kowalski");
+//        authorService.create(author);
+//        return "Author added id= " + author.getId();
+        model.addAttribute("author", new Author());
+        return "author";
+    }
+
+    @PostMapping("/add")
+//    @ResponseBody
+    public String add(Model model, @ModelAttribute Author author) {
         authorService.create(author);
-        return "Author added id= " + author.getId();
+        return "redirect:list";
     }
 
     @GetMapping("/find/{id}")
@@ -38,19 +45,30 @@ public class AuthorController {
         return "Author not found";
     }
 
-    @GetMapping("/update")
-    @ResponseBody
-    public String update(@PathVariable Long id) {
-        Author author = authorService.findOne(id);
-        author.setFirstName("nowy!!!!");
+    @GetMapping("/update/{id}")
+    public String update(Model model, @PathVariable Long id) {
+        model.addAttribute("author", authorService.findOne(id));
+        return "author";
+    }
+
+    @PostMapping("/update/{id}")
+    public String update(Model model, @ModelAttribute Author author) {
         authorService.update(author);
-        return "Author updated, id= " + author.getId();
+        return "redirect:../list";
     }
 
     @GetMapping("/delete/{id}")
-    @ResponseBody
+//    @ResponseBody
     public String delete(@PathVariable Long id) {
         authorService.delete(id);
-        return "Author deleted id = " + id;
+        return "redirect:../list";
     }
+
+    @GetMapping("/list")
+//    @ResponseBody
+    public String list(Model model) {
+        model.addAttribute("authors", authorService.findAll());
+        return "authors";
+    }
+
 }

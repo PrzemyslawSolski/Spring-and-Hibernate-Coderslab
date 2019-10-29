@@ -9,6 +9,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <script>
+        function confirmDelete(id, title) {
+            if (confirm("Do you want to delete a book '" + title + "'?")) {
+                window.location.href = "/books/delete/" + id;
+            }
+        }
+    </script>
     <title>Books</title>
 </head>
 <body>
@@ -32,7 +39,8 @@
             <td>${book.description}</td>
             <td>${book.publisher.name}</td>
             <td align="center"><a href="/books/update/${book.id}">Edit </a></td>
-            <td align="center"><a href="/books/delete/${book.id}">Delete </a></td>
+<%--            <td align="center"><a href="/books/delete/${book.id}">Delete </a></td>--%>
+            <td align="center"><a href="#" onclick="confirmDelete(${book.id}, '${book.title}')">Delete </a></td>
         </tr>
     </c:forEach>
     </tbody>

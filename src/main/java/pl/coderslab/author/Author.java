@@ -52,6 +52,10 @@ public class Author {
         this.lastName = lastName;
     }
 
+    public String getFullName(){
+        return firstName + " " +lastName;
+    }
+
     @Override
     public String toString() {
         return "Author{" +

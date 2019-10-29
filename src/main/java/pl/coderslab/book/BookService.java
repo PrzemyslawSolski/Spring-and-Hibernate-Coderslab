@@ -1,5 +1,6 @@
 package pl.coderslab.book;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,7 +27,15 @@ public class BookService {
     }
 
     public Book findOne(Long id){
-        return bookDao.findOne(id);
+        Book book = bookDao.findOne(id);
+//        Hibernate.initialize(book.getAuthors());
+        return book;
+    }
+
+    public Book findBookWithAuthors(Long id){
+        Book book = bookDao.findOne(id);
+        Hibernate.initialize(book.getAuthors());
+        return book;
     }
 
     public void delete(Long id){

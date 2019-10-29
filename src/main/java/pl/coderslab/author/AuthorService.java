@@ -36,6 +36,7 @@ public class AuthorService {
     }
 
     public void delete(Long id){
+        authorDao.deleteAuthorRelations(id);
         authorDao.delete(id);
     }
 }
