@@ -35,6 +35,11 @@
         <form:errors path="email" element="div" cssStyle="color:red"/>
     </label><br><br>
 
+    <label>Year of birth::
+        <form:input path="yearOfBirth"></form:input>
+        <form:errors path="yearOfBirth" element="div" cssStyle="color:red"/>
+    </label><br><br>
+
     <input type="submit" value="Save">
 </form:form>
 
