@@ -3,7 +3,10 @@ package pl.coderslab.author;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/authors")
@@ -30,7 +33,10 @@ public class AuthorController {
 
     @PostMapping("/add")
 //    @ResponseBody
-    public String add(Model model, @ModelAttribute Author author) {
+    public String add(@Valid Author author, BindingResult result) {
+        if(result.hasErrors()){
+            return "author";
+        }
         authorService.create(author);
         return "redirect:list";
     }
@@ -52,7 +58,10 @@ public class AuthorController {
     }
 
     @PostMapping("/update/{id}")
-    public String update(Model model, @ModelAttribute Author author) {
+    public String update(Model model, @Valid @ModelAttribute Author author, BindingResult result) {
+        if(result.hasErrors()){
+            return "author";
+        }
         authorService.update(author);
         return "redirect:../list";
     }

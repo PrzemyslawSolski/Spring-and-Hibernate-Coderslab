@@ -15,8 +15,9 @@
 <body>
 
 <form:form method="post" modelAttribute="book">
-    <label>Tytuł:
+    <label>Title:
         <form:input path="title"></form:input>
+        <form:errors path="title" element="div" cssStyle="color:red"/>
     </label><br><br>
     <label>Rating:
         <form:select path="rating">
@@ -24,13 +25,20 @@
                 <form:option value="${number}"></form:option>
             </c:forEach>
         </form:select>
+        <form:errors path="rating" element="div" cssStyle="color:red"/>
+    </label><br><br>
+    <label>Pages:
+        <form:input path="pages"></form:input>
+        <form:errors path="pages" element="div" cssStyle="color:red"/>
     </label><br><br>
     <label>Description:
         <form:input path="description"></form:input>
+        <form:errors path="description" element="div" cssStyle="color:red"/>
     </label><br><br>
     <label>
         <form:select path="publisher.id" items="${publishers}"
                      itemValue="id" itemLabel="name"/>
+        <form:errors path="publisher" element="div" cssStyle="color:red"/>
     </label><br><br>
     <label>Authors:
         <form:select path="authors" items="${authors}"
@@ -38,6 +46,7 @@
             <form:option value="-" label="--Please Select--"/>
             <form:options items="${authors.id}"/>
         </form:select>
+        <form:errors path="authors" element="div" cssStyle="color:red"/>
     </label><br>
     <input type="submit" value="Save">
 </form:form>

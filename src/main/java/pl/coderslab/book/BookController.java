@@ -4,12 +4,14 @@ import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.author.Author;
 import pl.coderslab.author.AuthorService;
 import pl.coderslab.publisher.Publisher;
 import pl.coderslab.publisher.PublisherService;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,8 +70,10 @@ public class BookController {
     }
 
     @PostMapping("/add")
-//    @ResponseBody
-    public String add(Model model, @ModelAttribute Book book) {
+    public String add(@Valid @ModelAttribute Book book, BindingResult result) {
+        if(result.hasErrors()){
+            return "book";
+        }
         bookService.create(book);
         return "redirect:list";
     }
@@ -83,7 +87,10 @@ public class BookController {
     }
 
     @PostMapping("/update/{id}")
-    public String update(Model model, @ModelAttribute Book book) {
+    public String update(Model model, @Valid @ModelAttribute Book book, BindingResult result) {
+        if(result.hasErrors()){
+            return "book";
+        }
         bookService.update(book);
         return "redirect:../list";
     }
