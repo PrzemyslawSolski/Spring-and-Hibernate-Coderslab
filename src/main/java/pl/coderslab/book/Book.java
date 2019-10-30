@@ -7,10 +7,7 @@ import pl.coderslab.validate.BookValidationGroup;
 import pl.coderslab.validate.PropositionValidationGroup;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +18,7 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull(groups={BookValidationGroup.class, PropositionValidationGroup.class})
+    @NotBlank(groups={BookValidationGroup.class, PropositionValidationGroup.class})
     @Size(min=5, groups={BookValidationGroup.class})
     private String title;
 
@@ -33,7 +30,7 @@ public class Book {
 
     private boolean proposition;
 
-    @NotNull(groups={PropositionValidationGroup.class})
+    @NotBlank(groups={PropositionValidationGroup.class})
     @Size(max = 600, groups={BookValidationGroup.class, PropositionValidationGroup.class})
     private String description;
 
