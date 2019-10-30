@@ -1,6 +1,5 @@
 package pl.coderslab.book;
 
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,54 +11,31 @@ import pl.coderslab.author.AuthorService;
 import pl.coderslab.publisher.Publisher;
 import pl.coderslab.publisher.PublisherService;
 import pl.coderslab.validate.BookValidationGroup;
+import pl.coderslab.validate.PropositionValidationGroup;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/books")
-public class BookController {
+@RequestMapping("/propositions")
+public class PropositionController {
 
     private final BookService bookService;
     private final PublisherService publisherService;
     private final AuthorService authorService;
 
     @Autowired
-    public BookController(BookService bookService, PublisherService publisherService, AuthorService authorService) {
+    public PropositionController(BookService bookService, PublisherService publisherService, AuthorService authorService) {
         this.bookService = bookService;
         this.publisherService = publisherService;
         this.authorService = authorService;
     }
 
 
-    @GetMapping("/addold")
-    @ResponseBody
-    public String add() {
-        Book book = new Book();
-        book.setTitle("Thinking in Java");
-
-        Publisher publisher = new Publisher();
-        publisher.setName("Publisher one");
-        publisherService.create(publisher);
-        book.setPublisher(publisher);
-
-        Author author = new Author();
-        author.setFirstName("Jan");
-        author.setLastName("Kowalski");
-        authorService.create(author);
-        List<Author> authors = new ArrayList<>();
-        authors.add(author);
-
-        book.setAuthors(authors);
-        bookService.create(book);
-        return "Book added, id=" + book.getId();
-
-    }
-
     @GetMapping("/list")
     public String show(Model model) {
-        model.addAttribute("books", bookService.findAll());
+        model.addAttribute("books", bookService.findAllPropositions());
         return "books";
     }
 
@@ -72,10 +48,11 @@ public class BookController {
     }
 
     @PostMapping("/add")
-    public String add(@Validated({BookValidationGroup.class}) @ModelAttribute Book book, BindingResult result) {
+    public String add(@Validated({PropositionValidationGroup.class}) @ModelAttribute Book book, BindingResult result) {
         if(result.hasErrors()){
             return "book";
         }
+        book.setProposition(true);
         bookService.create(book);
         return "redirect:list";
     }
@@ -89,10 +66,11 @@ public class BookController {
     }
 
     @PostMapping("/update/{id}")
-    public String update(Model model, @Validated({BookValidationGroup.class}) @ModelAttribute Book book, BindingResult result) {
+    public String update(Model model, @Validated({PropositionValidationGroup.class}) @ModelAttribute Book book, BindingResult result) {
         if(result.hasErrors()){
             return "book";
         }
+        book.setProposition(true);
         bookService.update(book);
         return "redirect:../list";
     }
@@ -101,14 +79,9 @@ public class BookController {
     public String delete(Model model, @PathVariable Long id) {
         bookService.delete(id);
 //        model.addAttribute("book", bookService.findOne(id));
-        return "redirect:../list";
+        return "redirect:../../propositions/list";
     }
 
-//    @GetMapping("/delete/confirm/{id}")
-//    public String deleteConf(@PathVariable Long id) {
-//        bookService.delete(id);
-//        return "redirect:../../list";
-//    }
 
     @GetMapping("/find/{id}")
     @ResponseBody

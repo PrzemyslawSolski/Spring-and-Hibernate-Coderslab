@@ -3,6 +3,8 @@ package pl.coderslab.book;
 import org.hibernate.validator.constraints.Range;
 import pl.coderslab.author.Author;
 import pl.coderslab.publisher.Publisher;
+import pl.coderslab.validate.BookValidationGroup;
+import pl.coderslab.validate.PropositionValidationGroup;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -19,24 +21,27 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    @Size(min=5)
+    @NotNull(groups={BookValidationGroup.class, PropositionValidationGroup.class})
+    @Size(min=5, groups={BookValidationGroup.class})
     private String title;
 
-    @Range(min = 1, max = 10)
+    @Range(min = 1, max = 10, groups={BookValidationGroup.class})
     private int rating;
 
-    @Min(2)
+    @Min(value = 2, groups={BookValidationGroup.class})
     private int pages;
 
-    @Size(max = 600)
+    private boolean proposition;
+
+    @NotNull(groups={PropositionValidationGroup.class})
+    @Size(max = 600, groups={BookValidationGroup.class, PropositionValidationGroup.class})
     private String description;
 
-    @NotNull
+    @NotNull(groups={BookValidationGroup.class})
     @ManyToOne
     private Publisher publisher;
 
-    @NotEmpty
+    @NotEmpty(groups={BookValidationGroup.class})
     @ManyToMany
     @JoinTable(name = "book_authors",
             joinColumns = @JoinColumn(name = "book_id"),
@@ -74,6 +79,14 @@ public class Book {
 
     public void setPages(int pages) {
         this.pages = pages;
+    }
+
+    public boolean isProposition() {
+        return proposition;
+    }
+
+    public void setProposition(boolean proposition) {
+        this.proposition = proposition;
     }
 
     public Publisher getPublisher() {

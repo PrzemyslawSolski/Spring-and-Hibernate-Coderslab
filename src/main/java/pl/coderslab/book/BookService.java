@@ -46,6 +46,10 @@ public class BookService {
         return bookDao.findAll();
     }
 
+    public List<Book> findAllPropositions(){
+        return bookDao.findAllPropositions();
+    }
+
     public List<Book> getRatingList(int rating){
         return bookDao.getRatingList(rating);
     }
