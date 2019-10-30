@@ -18,9 +18,9 @@
 
 <c:if test="${not empty errors}">
     <c:forEach items="${errors}" var="errorek">
-        Pole:
+
+        Pole: ${errorek.path}
         błąd: ${errorek.message}
-        błąd: ${errorek.path}
 
 <%--        </c:out>--%>
     </c:forEach>

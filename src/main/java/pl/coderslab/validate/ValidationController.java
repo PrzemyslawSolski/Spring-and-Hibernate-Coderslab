@@ -49,6 +49,7 @@ public class ValidationController {
     public String validateAuthor(Model model){
         Author author = new Author();
         author.setPesel("123");
+        author.setYearOfBirth(2006);
         Set<ConstraintViolation<Author>> errors = validator.validate(author);
         List<FieldError> fieldErrors = new ArrayList<>();
         if(!errors.isEmpty()){
