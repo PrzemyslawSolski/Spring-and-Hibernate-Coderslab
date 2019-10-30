@@ -62,7 +62,7 @@ public class BookController {
     @GetMapping("/add")
     public String add(Model model) {
         model.addAttribute("book", new Book());
-        model.addAttribute("authors", authorService.findAll());
+//        model.addAttribute("authors", authorService.findAll());
         return "book";
 
     }
