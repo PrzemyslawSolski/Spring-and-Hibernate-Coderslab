@@ -11,46 +11,56 @@ import java.util.List;
 @Transactional
 public class BookService {
 
-    private final BookDao bookDao;
+    private final BookRepository bookRepository;
 
     @Autowired
-    public BookService(BookDao bookDao) {
-        this.bookDao = bookDao;
+    public BookService(BookRepository bookDao) {
+        this.bookRepository = bookDao;
     }
 
     public void create(Book book){
-        bookDao.create(book);
+        bookRepository.save(book);
     }
 
     public void update(Book book){
-        bookDao.update(book);
+        bookRepository.save(book);
     }
 
     public Book findOne(Long id){
-        Book book = bookDao.findOne(id);
+        Book book = bookRepository.findById(id).orElse(null);
 //        Hibernate.initialize(book.getAuthors());
         return book;
     }
 
     public Book findBookWithAuthors(Long id){
-        Book book = bookDao.findOne(id);
+        Book book = findOne(id);
         Hibernate.initialize(book.getAuthors());
         return book;
     }
 
     public void delete(Long id){
-        bookDao.delete(id);
+        bookRepository.deleteById(id);
     }
 
     public List<Book> findAll(){
-        return bookDao.findAll();
+        return bookRepository.findByPropositionFalse();
     }
 
     public List<Book> findAllPropositions(){
-        return bookDao.findAllPropositions();
+        return bookRepository.findByPropositionTrue();
     }
 
     public List<Book> getRatingList(int rating){
-        return bookDao.getRatingList(rating);
+        return bookRepository.findByRating(rating);
     }
+
+    public List<Book> getBooksByTitle(String title){
+        return bookRepository.findByTitle(title);
+
+    }
+
+    public List<Book> getBooksCategoryId(Long id){
+        return bookRepository.findByCategoryId(id);
+    }
+
 }
