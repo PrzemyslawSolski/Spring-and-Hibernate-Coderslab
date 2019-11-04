@@ -47,4 +47,6 @@ public class BookDao {
         query.setParameter("rating", rating);
         return query.getResultList();
     }
+
+
 }

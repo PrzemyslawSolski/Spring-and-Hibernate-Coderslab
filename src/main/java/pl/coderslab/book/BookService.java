@@ -75,4 +75,22 @@ public class BookService {
         return bookRepository.findFirstByCategoryIdOrderByTitle(id);
     }
 
+    public List<Book> getBooksByRatingBetweenQuery(int min, int max){
+        return bookRepository.findBooksByRatingBetweenQuery(min, max);
+    }
+
+    public List<Book> getBooksByPublisherQuery(long id){
+        return bookRepository.findBooksByPublisherQuery(id);
+    }
+
+    public Book getFirstBookByCategoryByTitle(long id){
+        return bookRepository.findFirstByCategoryIdOrderByTitle(id);
+    }
+    public void resetRating(int rating){
+        bookRepository.resetRating(rating);
+    }
+
+    public void resetRatingQuery(int rating){
+        bookRepository.resetRating(rating);
+    }
 }

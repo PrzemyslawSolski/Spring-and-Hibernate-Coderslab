@@ -20,19 +20,19 @@ public class AuthorService {
     }
 
     public void create(Author author){
-        authorDao.create(author);
+        authorRepository.save(author);
     }
 
     public void update(Author author){
-        authorDao.update(author);
+        authorRepository.save(author);
     }
 
     public Author findOne(Long id){
-        return authorDao.findOne(id);
+        return authorRepository.findById(id).orElse(null);
     }
 
     public List<Author> findAll(){
-        return authorDao.findAll();
+        return authorRepository.findAll();
     }
 
     public void delete(Long id){
@@ -50,6 +50,14 @@ public class AuthorService {
 
     public List<Author> getAuthorsByLastName (String lastName){
         return authorRepository.findByLastName(lastName);
+    }
+
+    public List<Author> getAuthorsByEmailStartsWith(String emailPrefix){
+        return authorRepository.findByEmailStartsWith(emailPrefix);
+    }
+
+    public List<Author> getAuthorsByPeselStartsWith(String peselPrefix){
+        return authorRepository.findByPeselStartsWith(peselPrefix);
     }
 
 }
