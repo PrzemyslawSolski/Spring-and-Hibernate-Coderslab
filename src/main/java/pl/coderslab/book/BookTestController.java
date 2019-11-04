@@ -31,9 +31,23 @@ public class BookTestController {
 
     @GetMapping("/category/{id}")
     @ResponseBody
-    public String getBooksByTitle(@PathVariable Long id){
+    public String getBooksByCategory(@PathVariable Long id){
         List<Book> books = bookService.getBooksCategoryId(id);
         return books.toString();
+    }
+
+    @GetMapping("/author/{id}")
+    @ResponseBody
+    public String getBooksByAuthors(@PathVariable Long id){
+        List<Book> books = bookService.getBooksByAuthorsId(id);
+        return books.toString();
+    }
+
+    @GetMapping("/categoryfirst/{id}")
+    @ResponseBody
+    public String getFirstBookByCategorySortedByTitle(@PathVariable Long id){
+        Book book = bookService.getFirstBookByCategoryIdOrderByTitle(id);
+        return book.toString();
     }
 
 }

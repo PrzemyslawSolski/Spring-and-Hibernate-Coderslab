@@ -50,7 +50,7 @@ public class BookService {
         return bookRepository.findByPropositionTrue();
     }
 
-    public List<Book> getRatingList(int rating){
+    public List<Book> getBooksByRating(int rating){
         return bookRepository.findByRating(rating);
     }
 
@@ -61,6 +61,18 @@ public class BookService {
 
     public List<Book> getBooksCategoryId(Long id){
         return bookRepository.findByCategoryId(id);
+    }
+
+    public List<Book> getBooksByAuthorsId(Long id){
+        return bookRepository.findByAuthorsId(id);
+    }
+
+    public List<Book> getBooksByPublisherId (Long id){
+        return bookRepository.findByPublisherId(id);
+    }
+
+    public Book getFirstBookByCategoryIdOrderByTitle(Long id){
+        return bookRepository.findFirstByCategoryIdOrderByTitle(id);
     }
 
 }

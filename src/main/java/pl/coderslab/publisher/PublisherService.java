@@ -3,8 +3,6 @@ package pl.coderslab.publisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.coderslab.book.Book;
-import pl.coderslab.book.BookDao;
 
 import java.util.List;
 
@@ -13,10 +11,12 @@ import java.util.List;
 public class PublisherService {
 
     private final PublisherDao publisherDao;
+    private final PublisherRepository publisherRepository;
 
     @Autowired
-    public PublisherService(PublisherDao publisherDao) {
+    public PublisherService(PublisherDao publisherDao, PublisherRepository publisherRepository) {
         this.publisherDao = publisherDao;
+        this.publisherRepository = publisherRepository;
     }
 
     public void create(Publisher publisher){
@@ -37,5 +37,14 @@ public class PublisherService {
 
     public List<Publisher> findAll(){
         return publisherDao.findAll();
+    }
+
+    public Publisher getPublisherByNip(String nip){
+        return publisherRepository.findByNip(nip);
+    }
+
+    public Publisher getByRegon(String regon){
+        return publisherRepository.findByRegon(regon);
+
     }
 }
