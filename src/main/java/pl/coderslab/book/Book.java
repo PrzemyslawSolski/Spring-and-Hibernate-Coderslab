@@ -12,6 +12,9 @@ import javax.validation.constraints.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@NamedQuery(name="testQuery", query="select b from Book b where b.rating=?1")
+@NamedNativeQuery(name="testQ", query=" select title from books ", resultClass = Book.class)
+
 @Entity
 @Table(name = "books")
 public class Book {

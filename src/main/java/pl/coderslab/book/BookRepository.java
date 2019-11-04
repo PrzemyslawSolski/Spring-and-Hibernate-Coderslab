@@ -16,7 +16,6 @@ public interface BookRepository extends JpaRepository<Book, Long>, BookRepoCusto
     List<Book> findByTitle(String title);
 
     @Query("select b from Book b where b.title = ?1")
-
     List<Book> findByTitleQuery(String title);
 
 
