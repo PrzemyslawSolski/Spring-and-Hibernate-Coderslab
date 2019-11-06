@@ -9,6 +9,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <script src="<c:url value="/webjars/jquery/3.0.0/jquery.min.js"/>"></script>
+    <script src="<c:url value="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"/>"></script>
+    <link href="<c:url value="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"/>" rel="stylesheet">
+    <link href="<c:url value="/resources/css/main.css"/>" rel="stylesheet">
     <script>
         function confirmDelete(id, title) {
             if (confirm("Do you want to delete a book '" + title + "'?")) {
@@ -26,7 +30,7 @@
     <h2>Books list</h2>
 </c:if>
 <%--<h2>Books list</h2>--%>
-<table border="2px">
+<table  class="table table-hover">
     <tbody>
     <tr>
         <th width="20"> id</th>
@@ -48,9 +52,9 @@
             <td>${book.rating}</td>
             <td>${book.description}</td>
             <td>${book.publisher.name}</td>
-            <td align="center"><a href="./update/${book.id}">Edit </a></td>
+            <td align="center"><a class="btn btn-primary btn-sm" href="./update/${book.id}">Edit </a></td>
                 <%--            <td align="center"><a href="/books/delete/${book.id}">Delete </a></td>--%>
-            <td align="center"><a href="#" onclick="confirmDelete(${book.id}, '${book.title}')">Delete </a></td>
+            <td align="center"><a class="btn btn-danger btn-sm" href="#" onclick="confirmDelete(${book.id}, '${book.title}')">Delete </a></td>
             <c:if test="${books.get(0).proposition==true}">
                 <td align="center"><a href="../books/update/${book.id}">book </a></td>
             </c:if>
