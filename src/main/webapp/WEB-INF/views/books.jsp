@@ -26,13 +26,13 @@
 <div class="container">
 
     <c:if test="${books.get(0).proposition==true}">
-            <h2>Propositions list</h2>
-        </c:if>
-        <c:if test="${books.get(0).proposition==false}">
-            <h2>Books list</h2>
-        </c:if>
-        <%--<h2>Books list</h2>--%>
-        <div class="container">
+        <h2>Propositions list</h2>
+    </c:if>
+    <c:if test="${books.get(0).proposition==false}">
+        <h2>Books list</h2>
+    </c:if>
+    <%--<h2>Books list</h2>--%>
+    <div class="container">
         <table class="table table-hover">
             <tbody>
             <tr>
