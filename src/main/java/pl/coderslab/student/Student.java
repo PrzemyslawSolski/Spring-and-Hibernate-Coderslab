@@ -1,14 +1,15 @@
 package pl.coderslab.student;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
-//@Entity
-//@Table(name = "students")
+@Entity
+@Table(name = "students")
 public class Student {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String firstName;
     private String lastName;
@@ -16,8 +17,10 @@ public class Student {
     private String country;
     private String notes;
     private boolean mailingList;
-    private List<String> programmingSkills;
-    private List<String> hobbies;
+    @Transient
+    private List<String> programmingSkills = new ArrayList<>();
+    @Transient
+    private List<String> hobbies = new ArrayList<>();
 
     public Student() {
     }
