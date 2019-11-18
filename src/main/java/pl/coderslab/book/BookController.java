@@ -66,7 +66,6 @@ public class BookController {
     @GetMapping("/add")
     public String add(Model model) {
         model.addAttribute("book", new Book());
-//        model.addAttribute("authors", authorService.findAll());
         return "book";
 
     }
@@ -100,7 +99,6 @@ public class BookController {
     @GetMapping("/delete/{id}")
     public String delete(Model model, @PathVariable Long id) {
         bookService.delete(id);
-//        model.addAttribute("book", bookService.findOne(id));
         return "redirect:../list";
     }
 
