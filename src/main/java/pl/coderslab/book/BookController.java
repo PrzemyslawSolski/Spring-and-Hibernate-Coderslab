@@ -38,6 +38,9 @@ public class BookController {
     public String add() {
         Book book = new Book();
         book.setTitle("Thinking in Java");
+        book.setRating(4);
+        book.setPages(123);
+        book.setDescription("Programming");
 
         Publisher publisher = new Publisher();
         publisher.setName("Publisher one");
@@ -47,6 +50,9 @@ public class BookController {
         Author author = new Author();
         author.setFirstName("Jan");
         author.setLastName("Kowalski");
+        author.setPesel("71042701316");
+        author.setEmail("a@a");
+        author.setYearOfBirth(1960);
         authorService.create(author);
         List<Author> authors = new ArrayList<>();
         authors.add(author);
