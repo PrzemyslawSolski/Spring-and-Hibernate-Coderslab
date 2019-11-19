@@ -24,13 +24,8 @@ public class PersonController {
     @PostMapping("/add")
     @ResponseBody
     public String add(@ModelAttribute Person person){
-//        Person person = new Person();
-//        person.setLogin(login);
-//        person.setPassword(password);
-//        person.setEmail(email);
 
         personService.create(person);
-
         return "Person addded id=" + person.getId();
     }
 
